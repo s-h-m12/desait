@@ -1,29 +1,78 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Авторизация</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация | ООО "Обувь"</title>
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous"
+    >
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 </head>
-<body>
+<body class="auth-page">
 
-  {% if error %}
-  <p>{{ error }}</p>
-  {% endif %}
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
 
+<div class="auth-logo">
+    <img src="{% static 'images/Icon.JPG' %}"
+         alt="Логотип ООО Обувь"
+         class="auth-logo-img"
+         width="40"
+         height="40">
+</div>
+                <h1>ООО "Обувь"</h1>
+                <p>Система управления товарами</p>
+            </div>
 
-  <form method="POST">
-    {% csrf_token %}
-    <div>
-      <label>Логин</label>
-      <input type="text" name="username" required>
+            <div class="auth-body">
+                {% if error %}
+                <div class="auth-error">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="auth-form-group">
+                        <label for="username">Логин</label>
+                        <input type="text"
+                               id="username"
+                               name="username"
+                               class="auth-form-control"
+                               placeholder="Введите ваш логин"
+                               required
+                               autofocus>
+                    </div>
+
+                    <div class="auth-form-group">
+                        <label for="password">Пароль</label>
+                        <input type="password"
+                               id="password"
+                               name="password"
+                               class="auth-form-control"
+                               placeholder="Введите ваш пароль"
+                               required>
+                    </div>
+
+                    <button type="submit" class="btn-auth">Войти в систему</button>
+                </form>
+
+                <a href="{% url 'guest_login' %}" class="btn-guest">Войти как гость</a>
+            </div>
+        </div>
     </div>
-    <div>
-      <label>Пароль</label>
-      <input type="password" name="password" required>
-    </div>
-    <div>
-      <button type="submit">Войти</button>
-    </div>
-  </form>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+    </script>
 </body>
 </html>
