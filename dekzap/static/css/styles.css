@@ -424,3 +424,7 @@ input, select, textarea {
         margin-left: 0;
     }
 }
+
+logo-img {
+    border-radius: 50%;
+}

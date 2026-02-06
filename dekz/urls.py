@@ -23,5 +23,8 @@ urlpatterns = [
     path('', views.index_view, name='home'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('guest-login/', views.guest_login_view, name='guest_login')
+    path('guest-login/', views.guest_login_view, name='guest_login'),
+    path('delete/<int:id>', views.delete_view, name='delete'),
+    path('create', views.create_view, name='create'),
+    path('update/<int:id>', views.update_view, name='update')
 ]
