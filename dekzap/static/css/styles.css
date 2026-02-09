@@ -2,6 +2,7 @@ body {
     overflow-x: hidden;
     background-color: #ffffff;
     color: #00FA9A;
+    font-family: "Times New Roman", Times, serif !important;
 }
 
 .container-max {
@@ -427,4 +428,66 @@ input, select, textarea {
 
 logo-img {
     border-radius: 50%;
+}
+
+.product-price {
+    margin: 12px 0;
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.price-normal {
+    font-weight: 700;
+    font-size: 1.3em;
+    color: #333;
+}
+
+.price-old {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 1em;
+    margin-right: 12px;
+    opacity: 0.8;
+}
+
+.price-new {
+    color: #d32f2f;
+    font-weight: 800;
+    font-size: 1.4em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.sale-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #4caf50, #388e3c);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-top: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.discount-high {
+    background-color: #2E8B57 !important;
+    border-radius: 8px;
+    padding: 10px 12px !important;
+    box-shadow: 0 4px 8px rgba(46, 139, 87, 0.2);
+}
+
+.discount-high .price-old {
+    color: #d1e7dd !important;
+}
+
+.discount-high .price-new {
+    color: #ffeb3b !important;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.discount-high .sale-badge {
+    background: rgba(255, 255, 255, 0.9);
+    color: #2E8B57;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }

@@ -1,4 +1,6 @@
 {% load static %}
+{% load product_filters %}
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -13,6 +15,12 @@
     >
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="shortcut icon" href="{% static 'images/Icon.ico' %}">
+    <style>
+        /* Временные стили для Times New Roman, если нужно */
+        * {
+            font-family: "Times New Roman", Times, serif;
+        }
+    </style>
 </head>
 <body class="main-page">
     <nav class="navbar-custom">
@@ -86,15 +94,8 @@
                         {{ product.description|truncatechars:80 }}
                     </div>
 
-                    <div class="product-price">
-                        {% if product.sale > 0 %}
-                            <div class="d-flex align-items-center">
-                                <span class="price-old">{{ product.price }} ₽</span>
-                                <span class="price-new">{{ product.price }} ₽</span>
-                            </div>
-                        {% else %}
-                            <span>{{ product.price }} ₽</span>
-                        {% endif %}
+                    <div class="price-container">
+                        {{ product|calculate_price }}
                     </div>
 
                     <div class="product-details">
