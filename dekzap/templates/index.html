@@ -15,12 +15,6 @@
     >
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="shortcut icon" href="{% static 'images/Icon.ico' %}">
-    <style>
-        /* Временные стили для Times New Roman, если нужно */
-        * {
-            font-family: "Times New Roman", Times, serif;
-        }
-    </style>
 </head>
 <body class="main-page">
     <nav class="navbar-custom">
@@ -36,20 +30,27 @@
                     ООО "Обувь" - Просмотр Товаров
                 </a>
 
-                {% if user.role_id == 2 %}
-                <div class="d-flex align-items-center">
-                    <form method="GET" class="search-form d-flex">
-                        <input type="search" name="search" class="search-input" placeholder="Поиск...">
-                        <button type="submit" class="btn-search">Найти</button>
-                        <button type="submit" name="sort" value="name_asc" class="btn-sort">А-Я</button>
-                        <select name="filterer" class="form-select">
-                            <option value="">Все</option>
-                            {% for category in categories %}
-                            <option value="{{ category }}" {% if filterer == category %} selected {% endif %}>{{ category }}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
-                </div>
+                {% if user.role_id == 2 or user.role_id == 1 %}
+                    <div class="d-flex align-items-center gap-2">
+                        <form method="GET" class="d-flex align-items-center gap-2">
+                            <div class="input-group">
+                                <input type="search" name="search" class="form-control form-control-sm" placeholder="Поиск товаров..." style="width: 200px;">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">Найти</button>
+                            </div>
+
+                            <select name="filterer" class="form-select form-select-sm" style="width: auto;">
+                                <option value="">Все категории</option>
+                                {% for category in categories %}
+                                    <option value="{{ category }}" {% if filterer == category %} selected {% endif %}>{{ category }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <div class="btn-group">
+                                <button type="submit" name="sort" value="name_asc" class="btn btn-outline-secondary btn-sm">По возрастанию</button>
+                                <button type="submit" name="sort" value="name_desc" class="btn btn-outline-secondary btn-sm">По убыванию</button>
+                            </div>
+                        </form>
+                    </div>
                 {% endif %}
 
                 <a class="btn-logout" href="{% url 'logout' %}">
