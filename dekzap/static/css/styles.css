@@ -151,7 +151,7 @@ input, select, textarea {
 .btn-secondary:not(.navbar .btn-secondary) {
     color: #00FA9A;
     border-color: #00FA9A;
-    background-color: transparent;
+    background-color: white;
 }
 
 @media (max-width: 768px) {
@@ -170,12 +170,12 @@ input, select, textarea {
 
 .navbar form .btn.btn-secondary {
     color: white;
-    background-color: #6c757d;
+    background-color: white;
     border-color: #6c757d;
 }
 
 .navbar form .btn.btn-secondary:hover {
-    background-color: #5a6268;
+    background-color: white;
     border-color: #545b62;
 }
 
@@ -354,7 +354,7 @@ input, select, textarea {
 }
 
 .btn-search {
-    background: #6c757d;
+    background: white;
     border: none;
     color: white;
     padding: 8px 20px;

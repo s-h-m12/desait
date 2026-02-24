@@ -95,6 +95,7 @@ def delete_view(request, id):
 
 
 def create_view(request):
+   # categories = Categor
     if request.method == 'POST':
         # Создаем артикул и товар
         articul_name = request.POST.get('art_name')
