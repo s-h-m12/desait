@@ -48,26 +48,31 @@ def guest_login_view(request):
 @login_required
 def index_view(request):
     products = Product.objects.all()
+    postavshiki = Postavshik.objects.all()
     # Получаем параметры фильтрации из GET запроса
     search = request.GET.get('search', '')
     sort = request.GET.get('sort', '')
     filterer = request.GET.get('filterer', '')
+    filterer_postav = request.GET.get('filterer_postav', '')
     # Получаем уникальные категории для фильтра
     categories = products.values_list('category', flat=True).distinct().order_by('category')
     # Фильтрация по поисковому запросу
     if search:
         products = products.filter(
-            Q(name__icontains=search) | Q(category__icontains=search) | Q(description__icontains=search))
+            Q(name__icontains=search) | Q(description__icontains=search))
+    # Фильтрация по категории
+    if filterer:
+        products = products.filter(category=filterer)
+    if filterer_postav:
+        products = products.filter(postavshik_id=filterer_postav)
     # Сортировка по количеству на складе
     if sort == 'name_asc':
         products = products.order_by('quantity_on_warehouse')
     elif sort == 'name_desc':
         products = products.order_by('-quantity_on_warehouse')
-    # Фильтрация по категории
-    if filterer:
-        products = products.filter(category=filterer)
     return render(request, 'index.html', {'products': products, 'search': search, 'sort': sort,
-                                          'filterer': filterer, 'categories': categories})
+                                          'filterer': filterer, 'categories': categories,
+                                          'postavshiki': postavshiki})
 
 
 def login_view(request):
@@ -95,21 +100,25 @@ def delete_view(request, id):
 
 
 def create_view(request):
-    products = Product.objects.all()
     proizvoditels = Proizvoditel.objects.all()
-    categories = products.values_list('category', flat=True).distinct()
+    categories = Product.objects.values_list('category', flat=True).distinct().order_by('category')
+    postavshiki = Postavshik.objects.all()
+
     if request.method == 'POST':
-        # Создаем артикул и товар
+        # Получаем данные
         articul_name = request.POST.get('art_name')
-        postavshik_name = request.POST.get('postavshik_name')
-        postavshik = Postavshik.objects.create(name=postavshik_name)
-        articul = Articul.objects.create(name=articul_name)
+        postavshik_id = request.POST.get('postavshik')
+
+        # Создаем или получаем артикул
+        articul, _ = Articul.objects.get_or_create(name=articul_name)
+
+        # Создаем товар
         Product.objects.create(
-            articul_id=articul.id,
+            articul=articul,
             name=request.POST.get('name'),
             unit=request.POST.get('unit'),
             price=request.POST.get('price'),
-            postavshik_id=postavshik.id,
+            postavshik_id=postavshik_id,
             proizvoditel_id=request.POST.get('proizvoditel'),
             category=request.POST.get('category'),
             sale=request.POST.get('sale'),
@@ -118,24 +127,46 @@ def create_view(request):
             photo=request.FILES.get('photo')
         )
         return redirect('home')
-    return render(request, 'prod.html', {'products': products,
-                                         'categories': categories,
-                                         'proizvoditels': proizvoditels})
 
-
+    return render(request, 'prod.html', {
+        'proizvoditels': proizvoditels,
+        'categories': categories,
+        'postavshiki': postavshiki,
+        'is_update': False
+    })
 def update_view(request, id):
     product = Product.objects.get(id=id)
+    proizvoditels = Proizvoditel.objects.all()
+    categories = Product.objects.values_list('category', flat=True).distinct().order_by('category')
+    postavshiki = Postavshik.objects.all()
+
     if request.method == 'POST':
-        product.name = request.POST.get('name'),
-        product.unit = request.POST.get('unit'),
-        product.price = request.POST.get('price'),
-        product.postavshik = request.POST.get('postavshik'),
-        product.proizvoditel = request.POST.get('proizvoditel'),
-        product.category = request.POST.get('category'),
-        product.sale = request.POST.get('sale'),
-        product.quantity_on_warehouse = request.POST.get('quantity'),
-        product.description = request.POST.get('description'),
-        product.photo = request.POST.get('photo')
+        # Обновляем поля
+        product.name = request.POST.get('name')
+        product.unit = request.POST.get('unit')
+        product.price = request.POST.get('price')
+        product.postavshik_id = request.POST.get('postavshik')  # изменил на postavshik
+        product.proizvoditel_id = request.POST.get('proizvoditel')
+        product.category = request.POST.get('category')
+        product.sale = request.POST.get('sale')
+        product.quantity_on_warehouse = request.POST.get('quantity')
+        product.description = request.POST.get('description')
+
+        articul_name = request.POST.get('art_name')
+        if articul_name and product.articul.name != articul_name:
+            articul, created = Articul.objects.get_or_create(name=articul_name)
+            product.articul = articul
+
+        if request.FILES.get('photo'):
+            product.photo = request.FILES.get('photo')
+
         product.save()
         return redirect('home')
-    return render(request, 'prod.html', {'product': product})
+
+    return render(request, 'prod.html', {
+        'product': product,
+        'proizvoditels': proizvoditels,
+        'categories': categories,
+        'postavshiki': postavshiki,
+        'is_update': True
+    })
