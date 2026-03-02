@@ -70,4 +70,4 @@ class Product(models.Model):
     sale = models.IntegerField()
     quantity_on_warehouse = models.IntegerField()
     description = models.TextField()
-    photo = models.CharField()
+    photo = models.ImageField(upload_to='images/', null=True, blank=True)

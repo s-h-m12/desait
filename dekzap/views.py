@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .models import CustomUser, Product, Role, Articul
+from .models import CustomUser, Product, Role, Articul, Postavshik, Proizvoditel
 
 
 def guest_login_view(request):
@@ -95,27 +95,32 @@ def delete_view(request, id):
 
 
 def create_view(request):
-   # categories = Categor
+    products = Product.objects.all()
+    proizvoditels = Proizvoditel.objects.all()
+    categories = products.values_list('category', flat=True).distinct()
     if request.method == 'POST':
         # Создаем артикул и товар
         articul_name = request.POST.get('art_name')
+        postavshik_name = request.POST.get('postavshik_name')
+        postavshik = Postavshik.objects.create(name=postavshik_name)
         articul = Articul.objects.create(name=articul_name)
-        product = (Product.objects.create
-            (
+        Product.objects.create(
             articul_id=articul.id,
             name=request.POST.get('name'),
             unit=request.POST.get('unit'),
             price=request.POST.get('price'),
-            postavshik_id=request.POST.get('postavshik'),
+            postavshik_id=postavshik.id,
             proizvoditel_id=request.POST.get('proizvoditel'),
             category=request.POST.get('category'),
             sale=request.POST.get('sale'),
             quantity_on_warehouse=request.POST.get('quantity'),
             description=request.POST.get('description'),
-            photo=request.POST.get('photo')
-        ))
+            photo=request.FILES.get('photo')
+        )
         return redirect('home')
-    return render(request, 'prod.html')
+    return render(request, 'prod.html', {'products': products,
+                                         'categories': categories,
+                                         'proizvoditels': proizvoditels})
 
 
 def update_view(request, id):
