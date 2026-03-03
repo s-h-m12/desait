@@ -61,3 +61,23 @@ class CalculatePriceFilterTests(TestCase):
         self.assertIn('background-color: #2E8B57', result)  # Зеленый фон
 
         self.assertIn('padding: 8px', result)  # Увеличенные отступы
+
+    # Тест №4: Проверка обработки отрицательной скидки.
+    # Техническая цель: при скидке более 15% (например, 20%) функция должна
+    # добавить специальный CSS-класс и зеленый фон с отступами к контейнеру цены.
+    def test_calculate_price_with_negative_discount(self):
+        # Arrange (Подготовка): создаем товар с отрицательной скидкой -5%
+        product = MockProduct(price=2500, sale=-5)
+
+        # Act (Действие): вызываем тестируемую функцию
+        result = calculate_price(product)
+
+        # Assert (Проверка): убеждаемся, что скидка не применилась
+        self.assertIn('price-normal">2500', result)  # Должна быть обычная цена
+        self.assertNotIn('price-old', result)  # Нет перечеркнутой цены
+        self.assertNotIn('sale-badge', result)  # Нет бейджа скидки
+        self.assertNotIn('price-new', result)  # Нет новой цены
+
+        # Эта проверка специально добавлена для демонстрации ошибки
+        # Ожидается, что бейдж скидки отсутствует, но мы намеренно проверяем его наличие
+        self.assertIn('sale-badge">-5%', result)  # Будет ошибка! Бейдж не должен присутствовать

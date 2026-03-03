@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-from .models import CustomUser, Product, Role, Articul, Postavshik, Proizvoditel
+from .models import CustomUser, Product, Role, Articul, Postavshik, Proizvoditel, Order, ArticulOrder, Status
 
 
 def guest_login_view(request):
@@ -170,3 +170,85 @@ def update_view(request, id):
         'postavshiki': postavshiki,
         'is_update': True
     })
+
+@login_required
+def orders_view(request):
+    orders = Order.objects.select_related('client', 'delivery_service', 'status'
+                                          ).prefetch_related('articulorder_set__articul__product_set'
+                                                             ).all()
+    return render(request, 'orders.html', {'orders': orders})
+
+def delete_order_view(request, id):
+    product = Order.objects.get(id=id)
+    product.delete()
+    return redirect('orders')
+
+
+def create_order_view(request):
+    statuses = Status.objects.all()
+    orders = Order.objects.select_related('client', 'delivery_service', 'status'
+                                          ).prefetch_related('articulorder_set__articul'
+                                                             ).all()
+
+    if request.method == 'POST':
+        # Получаем данные
+        articul_name = request.POST.get('art_name')
+
+        # Создаем или получаем артикул
+        articul = Articul.objects.get_or_create(name=articul_name)[0]
+
+        order = Order()
+        order.order_date = request.POST.get('order_date')
+        order.delivery_date = request.POST.get('delivery_date')
+        order.delivery_code = request.POST.get('delivery_code')
+        order.client_id = request.POST.get("client")
+        order.delivery_service_id = request.POST.get("delivery_service")
+        order.status_id = request.POST.get("status")
+        order.save()
+
+        articulorder = ArticulOrder()
+        articulorder.quantity = request.POST.get('quantity')
+        articulorder.articul_id = articul.id
+        articulorder.order_id = order.id
+        articulorder.save()
+        return redirect('orders')
+
+    return render(request, 'prod.html', {
+        'statuses': statuses,
+        'orders': orders,
+        'is_update': False
+    })
+def update_order_view(request, id):
+   # order = Order.objects.get(id=id)
+    proizvoditels = Proizvoditel.objects.all()
+    categories = Product.objects.values_list('category', flat=True).distinct().order_by('category')
+    postavshiki = Postavshik.objects.all()
+
+ #   if request.method == 'POST':
+  #      # Обновляем поля
+   #     product.name = request.POST.get('name')
+    #    product.unit = request.POST.get('unit')
+     #   product.price = request.POST.get('price')
+      #  product.postavshik_id = request.POST.get('postavshik')  # изменил на postavshik
+       # product.proizvoditel_id = request.POST.get('proizvoditel')
+        #product.category = request.POST.get('category')
+        #product.sale = request.POST.get('sale')
+        #product.quantity_on_warehouse = request.POST.get('quantity')
+        #product.description = request.POST.get('description')
+
+    #    articul_name = request.POST.get('art_name')
+        #if articul_name and product.articul.name != articul_name:
+          #  articul, created = Articul.objects.get_or_create(name=articul_name)
+         #   product.articul = articul
+
+   #     order.save()
+    #    return redirect('home')
+
+ #   return render(request, 'prod.html', {
+  #      'order': order,
+  #      'proizvoditels': proizvoditels,
+   #     'categories': categories,
+   #     'postavshiki': postavshiki,
+ #       'is_update': True
+  #  })
+

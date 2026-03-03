@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Заказы | ООО "Обувь"</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+        crossorigin="anonymous"
+    >
+    <link rel="shortcut icon" href="{% static 'images/Icon.ico' %}">
+</head>
+<body>
+    <nav class="navbar-custom">
+        <div class="main-container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="/"><img src="{% static 'images/Icon.JPG' %}"
+                     alt="Логотип ООО Обувь"
+                     class="logo-img"
+                     width="40"
+                     height="40">
+                </a>
+                <a class="navbar-brand-custom" href="/">
+                    ООО "Обувь" - CRUD Заказы
+                </a>
+                <a class="btn-logout" href="{% url 'orders' %}">
+                    Назад
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h2 class="mb-4">{% if is_update %}Редактирование заказа{% else %}Добавление нового заказа{% endif %}</h2>
+
+        <form class="form-class" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Артикул -->
+                    <div class="form-group">
+                        <label class="form-label">Артикул</label>
+                        <input class="form-control" name="articul_name"
+                               value="{% if is_update %}{{ product.articul.name }}{% endif %}">
+                    </div>
+
+                    <!-- Название -->
+                    <div class="form-group">
+                        <label class="form-label">Дата заказа</label>
+                        <input class="form-control"
+                               name="order_date"
+                               type="date"
+                               value="{% if is_update %}{{ order.order_date|date: 'Y-m-d' }}{% endif %}">
+                    </div>
+
+                    <!-- Категория -->
+                    <div class="form-group">
+                          <label class="form-label">Дата выдачи</label>
+                            <input class="form-control"
+                               name="order_date"
+                               type="date"
+                               value="{% if is_update %}{{ order.order_date|date: 'Y-m-d' }}{% endif %}">
+                    </div>
+
+                    <!-- Производитель -->
+                    <div class="form-group">
+                        <label class="form-label">Код доставки</label>
+                            <input class="form-control" name="delivery_code"
+                               value="{% if is_update %}{{ order.delivery_code }}{% endif %}">
+                    </div>
+
+                    <!-- Поставщик -->
+                    <div class="form-group">
+                        <label class="form-label">Статус заказа</label>
+                        <select class="form-select" name="postavshik">
+                            <option value="">Выберите статус</option>
+                            {% for status in statuses %}
+                            <option value="{{ status.id }}"
+                                {% if is_update and product.postavshik.id == postavshik.id %}selected{% endif %}>
+                                {{ status.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!-- Цена -->
+                    <div class="form-group">
+                        <label class="form-label">Цена</label>
+                        <input class="form-control" name="price" type="number" step="0.01" min="0"
+                               value="{% if is_update %}{{ product.price }}{% endif %}">
+                    </div>
+
+                    <!-- Единица измерения -->
+                    <div class="form-group">
+                        <label class="form-label">Единица измерения</label>
+                        <input class="form-control" name="unit"
+                               value="{% if is_update %}{{ product.unit }}{% endif %}">
+                    </div>
+
+                    <!-- Количество на складе -->
+                    <div class="form-group">
+                        <label class="form-label">Кол-во на складе</label>
+                        <input class="form-control" name="quantity" type="number" min="0"
+                               value="{% if is_update %}{{ product.quantity_on_warehouse }}{% endif %}">
+                    </div>
+
+                    <!-- Скидка -->
+                    <div class="form-group">
+                        <label class="form-label">Скидка</label>
+                        <input class="form-control" name="sale" type="number" min="0" max="100"
+                               value="{% if is_update %}{{ product.sale }}{% endif %}">
+                    </div>
+
+                    <!-- Описание -->
+                    <div class="form-group">
+                        <label class="form-label">Описание</label>
+                        <textarea class="form-control" name="description" rows="3">{% if is_update %}{{ product.description }}{% endif %}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Фото -->
+            <div class="form-group">
+                <label class="form-label">Фото</label>
+                {% if is_update and product.photo %}
+                <div class="mb-2">
+                    <img src="{{ product.photo.url }}" alt="Текущее фото" style="max-width: 300px; max-height: 200px;">
+                    <br>
+                    <small>Текущее фото</small>
+                </div>
+                {% endif %}
+                <input class="form-control" name="photo" type="file" accept="image/*">
+                <small class="text-muted">Фото будет автоматически изменено до размера 300x200</small>
+            </div>
+
+            <div class="form-group mt-4">
+                <button type="submit" class="btn btn-primary">
+                    {% if is_update %}Сохранить{% else %}Создать{% endif %}
+                </button>
+                <a href="{% url 'home' %}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous">
+    </script>
+</body>
+</html>

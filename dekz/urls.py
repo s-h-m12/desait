@@ -28,7 +28,9 @@ urlpatterns = [
     path('guest-login/', views.guest_login_view, name='guest_login'),
     path('delete/<int:id>', views.delete_view, name='delete'),
     path('create/', views.create_view, name='create'),
-    path('update/<int:id>', views.update_view, name='update')
+    path('update/<int:id>', views.update_view, name='update'),
+    path('orders/', views.orders_view, name='orders'),
+    path('create_order/')
 ]
 
 if settings.DEBUG:

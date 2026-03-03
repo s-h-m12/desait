@@ -1,314 +1,420 @@
+/* orders.css - полное соответствие styles.css */
+
+/* Основные стили как в styles.css */
 body {
     overflow-x: hidden;
     background-color: #ffffff;
     color: #00FA9A;
     font-family: "Times New Roman", Times, serif !important;
+    margin: 0;
+    padding: 0;
 }
 
-.container-max {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.navbar {
-    width: 100%;
-    background-color: #7FFF00;
-    color: black;
-}
-
-.navbar *,
-.navbar a,
-.navbar .text,
-.navbar .navbar-brand,
-.navbar .form-check-label,
-.navbar .form-control,
-.navbar .btn {
-    color: black;
-}
-
-.navbar .text {
-    color: black;
-}
-
-.navbar .navbar-brand {
-    color: black;
-}
-
-.card {
-    transition: transform 0.2s;
-    border: 1px solid #dee2e6;
-    background-color: #7FFF00;
-    color: black;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.card-img-top-container {
-    height: 200px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-}
-
-.card-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: black;
-    margin-bottom: 0.5rem;
-}
-
-.card-body,
-.card-body *,
-.card-body p,
-.card-body span,
-.card-body div,
-.card-body strong,
-.card-body small {
-    color: black;
-}
-
-.card-text {
-    color: black;
-    font-size: 0.875rem;
-}
-
-.card .text-danger {
-    color: black;
-}
-
-.card .text-muted {
-    color: black;
-    opacity: 0.8;
-}
-
-.card .text-decoration-line-through {
-    text-decoration: line-through;
-    color: black;
-    opacity: 0.6;
-}
-
-.card h1,
-.card h2,
-.card h3,
-.card h4,
-.card h5,
-.card h6,
-.card .h1,
-.card .h2,
-.card .h3,
-.card .h4,
-.card .h5,
-.card .h6 {
-    color: black;
-}
-
-.card .alert {
-    color: black;
-}
-
-.card .alert-info {
-    background-color: rgba(0, 0, 0, 0.1);
-    border-color: black;
-}
-
-.card .small {
-    color: black;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: #00FA9A;
-}
-
-.alert {
-    color: #00FA9A;
-}
-
-.alert-info {
-    background-color: rgba(0, 250, 154, 0.1);
-    border-color: #00FA9A;
-}
-
-.small {
-    color: #00FA9A;
-}
-
-.container-max .form-control,
-.container-max .form-check-label,
-.container-max .btn {
-    color: #00FA9A;
-}
-
-input, select, textarea {
-    color: #00FA9A;
-}
-
-.btn-secondary:not(.navbar .btn-secondary) {
-    color: #00FA9A;
-    border-color: #00FA9A;
-    background-color: white;
-}
-
-@media (max-width: 768px) {
-    .card-title {
-        font-size: 0.9rem;
-    }
-
-    .card-text {
-        font-size: 0.8rem;
-    }
-}
-
-.text-center.text-muted p {
-    color: #00FA9A;
-}
-
-.navbar form .btn.btn-secondary {
-    color: white;
-    background-color: white;
-    border-color: #6c757d;
-}
-
-.navbar form .btn.btn-secondary:hover {
-    background-color: white;
-    border-color: #545b62;
-}
-
-.main-page {
-    background-color: #ffffff;
-    min-height: 100vh;
-}
-
+/* Контейнер как в styles.css */
 .main-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 15px;
 }
 
-.page-header {
-    text-align: center;
-    margin: 40px 0 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #7FFF00;
-}
-
-.page-header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 10px;
-}
-
-.user-role {
-    font-size: 16px;
-    color: #666;
-    font-weight: 500;
-}
-
-.products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.product-card {
+/* Навбар как в styles.css */
+.navbar-custom {
     background: #7FFF00;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* Все элементы навбара должны быть черными */
+.navbar-custom *,
+.navbar-custom a,
+.navbar-custom .navbar-brand-custom,
+.navbar-custom .btn-logout,
+.navbar-custom .form-control,
+.navbar-custom .btn,
+.navbar-custom select,
+.navbar-custom option {
+    color: black !important;
+}
+
+.navbar-brand-custom {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.navbar-brand-custom:hover {
+    color: #333 !important;
+    text-decoration: none;
+}
+
+/* Кнопка выхода как в styles.css */
+.btn-logout {
+    color: white !important;  /* Белый текст как в styles.css */
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 16px;
+    background: #d9534f;  /* Красный фон как в styles.css */
+    border-radius: 6px;
+    transition: background 0.2s;
+    white-space: nowrap;
+}
+
+.btn-logout:hover {
+    background: #c9302c;
+    color: white !important;
+    text-decoration: none;
+}
+
+/* Ссылка "Заказы" */
+.navbar-custom a[href*="orders"] {
+    color: black !important;
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.navbar-custom a[href*="orders"]:hover {
+    text-decoration: underline;
+}
+
+/* Стили для формы фильтров */
+.navbar-custom form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;  /* Разрешаем перенос */
+}
+
+/* Группа элементов фильтров */
+.navbar-custom .d-flex {
+    gap: 10px;
+    flex-wrap: wrap;  /* Разрешаем перенос */
+}
+
+/* Поле поиска */
+.navbar-custom .input-group {
+    width: auto;
+    min-width: 250px;
+}
+
+.navbar-custom input[type="search"] {
+    background: white;
+    border: 1px solid #dee2e6;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/* Кнопка "Найти" */
+.navbar-custom .btn-outline-secondary {
+    background: white;
+    border: 1px solid #6c757d;
+    color: #6c757d !important;
+    white-space: nowrap;
+}
+
+.navbar-custom .btn-outline-secondary:hover {
+    background: #6c757d;
+    color: white !important;
+}
+
+/* Выпадающие списки */
+.navbar-custom select {
+    background: white;
+    border: 1px solid #dee2e6;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 150px;
+}
+
+/* Группа кнопок сортировки */
+.navbar-custom .btn-group {
+    display: flex;
+    gap: 2px;
+}
+
+.navbar-custom .btn-group .btn {
+    background: white;
+    border: 1px solid #6c757d;
+    color: #6c757d !important;
+    font-size: 14px;
+    padding: 6px 12px;
+}
+
+.navbar-custom .btn-group .btn.active {
+    background: #7FFF00;
+    border-color: #00FA9A;
+    color: black !important;
+}
+
+/* Логотип */
+.logo-img {
+    border-radius: 50%;
+    border: 2px solid #00FA9A;
+}
+
+/* Контейнер для навбара с flex-оберткой */
+.navbar-custom .main-container > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;  /* Разрешаем перенос */
+}
+
+/* Контейнер для фильтров */
+.navbar-custom .d-flex.align-items-center.gap-2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+/* АДАПТИВНОСТЬ */
+
+/* Для больших экранов (по умолчанию все ок) */
+
+/* Для экранов 1200px и меньше */
+@media (max-width: 1200px) {
+    .navbar-custom .input-group {
+        min-width: 200px;
+    }
+
+    .navbar-custom select {
+        min-width: 130px;
+    }
+}
+
+/* Для экранов 992px и меньше */
+@media (max-width: 992px) {
+    .navbar-brand-custom {
+        font-size: 18px;
+    }
+
+    .navbar-custom .input-group {
+        min-width: 180px;
+    }
+
+    .navbar-custom select {
+        min-width: 120px;
+        font-size: 13px;
+    }
+
+    .navbar-custom .btn-group .btn {
+        padding: 5px 10px;
+        font-size: 13px;
+    }
+}
+
+/* Для экранов 768px и меньше - планшеты */
+@media (max-width: 768px) {
+    .navbar-custom .main-container > div {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .navbar-custom .d-flex.justify-content-between.align-items-center {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navbar-custom .d-flex.align-items-center.gap-2 {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-custom form {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navbar-custom .input-group {
+        width: 100%;
+    }
+
+    .navbar-custom input[type="search"] {
+        width: 100% !important;
+    }
+
+    .navbar-custom select {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    .navbar-custom .btn-group {
+        width: 100%;
+    }
+
+    .navbar-custom .btn-group .btn {
+        flex: 1;
+    }
+
+    .btn-logout {
+        align-self: flex-start;
+    }
+
+    /* Стили для страницы заказов */
+    .order-card {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .order-info {
+        margin-right: 0;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .order-date {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+/* Для экранов 576px и меньше - мобильные */
+@media (max-width: 576px) {
+    .main-container {
+        padding: 0 10px;
+    }
+
+    .navbar-brand-custom {
+        font-size: 16px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Карточка заказа как product-card */
+.order-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Стили как у product-card */
+    width: 100%;
+    max-width: 800px;
+    background: #7FFF00;  /* Тот же фон что у product-card */
     border-radius: 12px;
-    overflow: hidden;
+    padding: 25px;
+    margin: 0 auto 20px auto;
+
+    /* Тени и рамки как в вашем CSS */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     border: 1px solid #e1e5e9;
 }
 
-.product-card:hover {
+.order-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
-.product-image {
-    height: 220px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-}
-
-.product-image img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-.product-content {
+/* Блок с информацией о заказе */
+.order-info {
+    flex: 1;
     padding: 20px;
-    color: black;
+    background: white;  /* Белый фон как у product-image */
+    border-radius: 8px;
+    margin-right: 20px;
+    border: 1px solid #dee2e6;
 }
 
-.product-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    line-height: 1.3;
-    color: black;
-}
-
-.product-category {
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.7);
-    margin-bottom: 12px;
-}
-
-.product-info {
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: rgba(0, 0, 0, 0.8);
-}
-
-.product-info strong {
-    color: black;
-}
-
-.product-description {
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.7);
-    line-height: 1.4;
-    margin-bottom: 15px;
-    flex-grow: 1;
-}
-
-.product-price {
-    font-size: 18px;
+.order-info h3 {
+    margin: 0 0 15px 0;
+    color: #00FA9A;  /* Зеленый текст как в h1-h6 */
+    font-size: 22px;
     font-weight: 700;
-    color: black;
-    margin-bottom: 15px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 8px;
 }
 
-.price-old {
-    text-decoration: line-through;
-    color: rgba(0, 0, 0, 0.5);
+.order-info p {
+    margin: 8px 0;
+    color: black;  /* Черный текст как в .product-content */
     font-size: 16px;
-    margin-right: 8px;
 }
 
-.price-new {
-    color: #d9534f;
+.order-info p strong {
+    color: black;  /* Черный текст для strong */
 }
 
-.product-details {
-    font-size: 13px;
-    color: rgba(0, 0, 0, 0.7);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-top: 15px;
-    margin-top: auto;
+/* Статус заказа */
+.order-info .status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10px;
+    background: #7FFF00;  /* Зеленый фон как в navbar */
+    color: black;  /* Черный текст */
+    border: 1px solid #dee2e6;
 }
 
-.no-products {
+/* Квадрат с датой */
+.order-date {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* Стили квадрата */
+    width: 100px;
+    height: 100px;
+    background: white;  /* Белый фон */
+    border-radius: 12px;
+    border: 2px solid #00FA9A;  /* Зеленая рамка как в тексте */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    /* Текст */
+    font-weight: 700;
+    transition: transform 0.2s;
+}
+
+.order-date:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Стили для элементов даты */
+.order-date .day {
+    font-size: 32px;
+    color: #00FA9A;  /* Зеленый текст */
+    line-height: 1;
+}
+
+.order-date .month {
+    font-size: 16px;
+    color: #00FA9A;  /* Зеленый текст */
+    margin: 2px 0;
+    text-transform: uppercase;
+}
+
+.order-date .year {
+    font-size: 14px;
+    color: #00FA9A;  /* Зеленый текст */
+}
+
+/* Цена как в styles.css */
+.price {
+    color: #00FA9A !important;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+/* Страница заказов */
+.orders-page .page-header {
+    border-bottom-color: #7FFF00;
+}
+
+/* Пустой список */
+.no-orders {
     text-align: center;
     padding: 60px 20px;
     background: #f8f9fa;
@@ -316,178 +422,8 @@ input, select, textarea {
     margin: 40px 0;
 }
 
-.no-products p {
+.no-orders p {
     font-size: 18px;
     color: #666;
     margin: 0;
-}
-
-.navbar-custom {
-    background: #7FFF00;
-    padding: 15px 0;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-brand-custom {
-    font-size: 20px;
-    font-weight: 700;
-    color: black;
-}
-
-.search-form {
-    background: white;
-    border-radius: 8px;
-    padding: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.search-input {
-    border: none;
-    background: transparent;
-    width: 250px;
-    padding: 8px 12px;
-}
-
-.search-input:focus {
-    outline: none;
-    box-shadow: none;
-}
-
-.btn-search {
-    background: white;
-    border: none;
-    color: white;
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-weight: 500;
-}
-
-.btn-sort {
-    background: #f0ad4e;
-    border: none;
-    color: white;
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-weight: 500;
-    margin-left: 10px;
-}
-
-.btn-logout {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 16px;
-    background: #d9534f;
-    border-radius: 6px;
-    transition: background 0.2s;
-}
-
-.btn-logout:hover {
-    background: #c9302c;
-    color: white;
-    text-decoration: none;
-}
-
-@media (max-width: 768px) {
-    .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    .search-input {
-        width: 180px;
-    }
-
-    .main-container {
-        padding: 0 10px;
-    }
-
-    .page-header h1 {
-        font-size: 24px;
-    }
-}
-
-@media (max-width: 576px) {
-    .products-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .search-form {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .search-input {
-        width: 100%;
-    }
-
-    .btn-sort {
-        margin-left: 0;
-    }
-}
-
-logo-img {
-    border-radius: 50%;
-}
-
-.product-price {
-    margin: 12px 0;
-    padding: 8px;
-    transition: all 0.3s ease;
-}
-
-.price-normal {
-    font-weight: 700;
-    font-size: 1.3em;
-    color: #333;
-}
-
-.price-old {
-    text-decoration: line-through;
-    color: #888;
-    font-size: 1em;
-    margin-right: 12px;
-    opacity: 0.8;
-}
-
-.price-new {
-    color: #d32f2f;
-    font-weight: 800;
-    font-size: 1.4em;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
-
-.sale-badge {
-    display: inline-block;
-    background: linear-gradient(135deg, #4caf50, #388e3c);
-    color: white;
-    padding: 4px 10px;
-    border-radius: 15px;
-    font-size: 0.85em;
-    font-weight: 600;
-    margin-top: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.discount-high {
-    background-color: #2E8B57 !important;
-    border-radius: 8px;
-    padding: 10px 12px !important;
-    box-shadow: 0 4px 8px rgba(46, 139, 87, 0.2);
-}
-
-.discount-high .price-old {
-    color: #d1e7dd !important;
-}
-
-.discount-high .price-new {
-    color: #ffeb3b !important;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-}
-
-.discount-high .sale-badge {
-    background: rgba(255, 255, 255, 0.9);
-    color: #2E8B57;
-    font-weight: 700;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
